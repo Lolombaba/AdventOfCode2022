@@ -7,7 +7,7 @@ namespace AdventOfCode2022
 {
     public class Day1
     {
-        private Dictionary<int, int> _dico = new Dictionary<int, int>();
+        private List<int> _list = new List<int>();
 
         public Day1()
         {
@@ -20,15 +20,13 @@ namespace AdventOfCode2022
         {
             var values = File.ReadLines("../../../inputs/input_day1.txt").ToList();
 
-            var i = 0;
             var totalCalories = 0;
             foreach (var calorie in values)
             {
                 // a new challenger
                 if (string.IsNullOrEmpty(calorie))
                 {
-                    _dico.Add(i, totalCalories);
-                    i++;
+                    _list.Add(totalCalories);
                     totalCalories = 0;
                     continue;
                 }
@@ -40,13 +38,13 @@ namespace AdventOfCode2022
 
         public void Part1()
         {
-            var max = _dico.Max(x => x.Value);
+            var max = _list.Max();
             Console.WriteLine(max);
         }
 
         public void Part2()
         {
-            var top3calories = _dico.OrderByDescending(x => x.Value).Take(3).Sum(x => x.Value);
+            var top3calories = _list.OrderByDescending(x => x).Take(3).Sum();
             Console.WriteLine(top3calories);
         }
     }
